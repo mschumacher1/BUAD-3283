@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>This is the title</title>
+  </head>
+  <body>
+    <h1>This is the bodyy of the page</h1>
+    <p>This is a paragrapgh about myself. I like to do many things. I also like the outdoors. Them are some things about me </p>
+  </body>
+  <script>
+</html>
+<b>make the first bold</b>
+<i>make the second italic</i>
+<u>make the third underlined</u>
+<strike>make the fourth strikethrough</strike>
+
+<ul>
+  <li>style="color:red;">red</li>
+  <li>style="color:yellow;">yellow</li>
+  <li>style="color:blue;">blue</li>
+</ul>
+
+<ol>
+  <li>green</li>
+  <li>orange</li>
+  <li>purple</li>
+</ol> 
+
+<table style="width:100%">
+  <tr>
+    <th>Emlyn</th>
+    <th>Dockwray</th>
+    <th>edockwray0@samsung.com</th>
+    <th>Male</th>
+    <th>92.119.139.124</th>
+  </tr>
+  <tr>
+    <th>Kenton</th>
+    <th>Higgonet</th>
+    <th>khiggonet1@skyrock.com</th>
+    <th>Male</th>
+    <th>58.191.88.168</th>    
+  </tr>
+  <tr>
+    <th>Cherye</th>
+    <th>Kristof</th>
+    <th>ckristof2@scientificamerican.com</th>
+    <th>female</th>
+    <th>193.89.36.229</th>  
+  </tr>
+</table> 
+<a href="https://google.com/" target="_blank">HTML tutorial</a>
+<a href="edockwray0@samsung.com">HTML tutorial</a>
+<img src="pulpitrock.jpg" alt="Mountain View">
