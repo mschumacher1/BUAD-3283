@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<head>
+  <title>All About Me</Title>
+</head>
+<div class="column1">
+  <h1>Michael Schumacher</h1>
+<div class="column2">
+<div class="bio">
+  <p>I am a business major and a junior at BSU. I also love to hunt and fish</p>
+  </div>
+<h2>
+<img src="images/mike.jpg alt="ME" Title="This is my bSU picture" />
+<img src="images/mike.jpg" alt="Me" width "600" height="450"/>
+<p>
+<a href="mikeschumacher05@gmail.com">Link to Email</a>
+<img src="gmail.gif" alt="mikeschumacher05@gmail.com!" width="42" height="42" border="0">
+</a>
+</p>
+</html>
