@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BUAD 3283-Form</title>
+  </head>
+  <body>
+<h1>Payment Site</h1>
+  <p><span class="error">* required field.</span></p>
+  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>
+    Payment Type:
+    <input type="radio" name="Payment type" <?php if (isset($Payment type) && $Payment type=="Credit") echo "checked";?>Credit
+    <input type="radio" name="Payment type" <?php if (isset($Payment type) && $Payment type=="Debit") echo "checked";?>Debit
+    <span class="error">* <?php echo $Payment typeErr;?></span>
+    <br><br>
+  <h2>Payment Information</h2>
+    <p><span class="error">Accepted Payment Method.</span>
+    <span id="ctl00_MainContent_lblAcceptedPaymentMethod">Visa, MasterCard, American Express, Discover, JCB, eCheck</span></p>
+    Card Number: <input type="text" name="Card Number" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    Experation Date: <input type="text" name="Expiration Date" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+  <h3>Order Information</h3>
+    Invoice #: <input type="text" name="Invoice #" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    Description: <input type="text" name="Description" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+  <h4>Customer Billing Information</h4>
+    Customer ID: <input type="text" name="Customer ID" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    First Name: <input type="text" name="First Name" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    Last Name: <input type="text" name="Last Name" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    Company: <input type="text" name="Company" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    Address: <input type="text" name="Address" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    City: <input type="text" name="City" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    State/Provinance: <input type="text" name="State/Provinance" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    Zip Code: <input type="text" name="Zip Code" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    Country: <input type="text" name="Country" value>
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br><br>
+    Phone: <input type="text" name="Phone" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    Fax: <input type="text" name="Fax" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    Email: <input type="text" name="Email" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+  <h5>Shipping Information</h5>
+    First Name: <input type="text" name="First Name" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    Last Name: <input type="text" name="Last Name" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    Company: <input type="text" name="Company" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    Address: <input type="text" name="Address" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    City: <input type="text" name="City" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    State/Provinance: <input type="text" name="State/Provinance" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    Zip Code: <input type="text" name="Zip Code" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    Country: <input type="text" name="Country" value>
+    <span class="error"><?php echo $nameErr;?></span>
+    <br><br>
+    <input type="submit" name="submit" value="Submit">
+  </form>
+</h1>
+<h6>
+<?php
+// Start the session
+session_start();
+// Set session variables
+$_SESSION["number"] = "5076123345";
+$_SESSION["location"] = "MN";
+echo "Session variables are set.";
+?>
+<?php
+$email = "email@example.com";
+
+// Remove all illegal characters from email
+$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+
+// Validate e-mail
+if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+    echo("$email is a valid email address");
+} else {
+    echo("$email is not a valid email address");
+}
+?>
+</body>
+<?php
+require 'vendor/autoload.php';
+use net\authorize\api\contract\v1 as AnetAPI;
+use net\authorize\api\controller as AnetController;
+
+define("AUTHORIZENET_LOG_FILE","phplog");
+
+// Common setup for API credentials
+  $merchantAuthentication = new AnetAPI\MerchantAuthenticationType();
+  $merchantAuthentication->setName("YOUR_API_LOGIN_ID");
+  $merchantAuthentication->setTransactionKey("YOUR_TRANSACTION_KEY");
+  $refId = 'ref' . time();
+
+// Create the payment data for a credit card
+  $creditCard = new AnetAPI\CreditCardType();
+  $creditCard->setCardNumber("4111111111111111" );
+  $creditCard->setExpirationDate( "2038-12");
+  $paymentOne = new AnetAPI\PaymentType();
+  $paymentOne->setCreditCard($creditCard);
+
+// Create a transaction
+  $transactionRequestType = new AnetAPI\TransactionRequestType();
+  $transactionRequestType->setTransactionType("authCaptureTransaction");
+  $transactionRequestType->setAmount(151.51);
+  $transactionRequestType->setPayment($paymentOne);
+  $request = new AnetAPI\CreateTransactionRequest();
+  $request->setMerchantAuthentication($merchantAuthentication);
+  $request->setRefId( $refId);
+  $request->setTransactionRequest($transactionRequestType);
+  $controller = new AnetController\CreateTransactionController($request);
+  $response = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
+
+if ($response != null)
+{
+  $tresponse = $response->getTransactionResponse();
+  if (($tresponse != null) && ($tresponse->getResponseCode()=="1"))
+  {
+    echo "Charge Credit Card AUTH CODE : " . $tresponse->getAuthCode() . "\n";
+    echo "Charge Credit Card TRANS ID  : " . $tresponse->getTransId() . "\n";
+  }
+  else
+  {
+    echo "Charge Credit Card ERROR :  Invalid response\n";
+  }
+}
+else
+{
+  echo  "Charge Credit Card Null response returned";
+}
+?>
+</html>
